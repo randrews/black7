@@ -32,8 +32,8 @@ export default function App() {
     setPage('setup')
   }
 
-  function handleStart() {
-    const newGame: GameState = { players: [], rounds: [] }
+  function handleStart(players: string[]) {
+    const newGame: GameState = { players, rounds: [] }
     saveGame(newGame)
     setGame(newGame)
     setPage('scoresheet')
