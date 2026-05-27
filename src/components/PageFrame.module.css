@@ -1,12 +1,6 @@
 .frame {
-  position: fixed;
-  inset: 1rem;
-  border: 2px solid black;
-  border-radius: 2rem;
-  background: #f5f0e4;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  composes: card from '../styles/shared.module.css';
+  background: var(--color-parchment);
 }
 
 .header {
@@ -23,7 +17,7 @@
 .rule {
   position: relative;
   border: none;
-  border-top: 1px solid #c8b99a;
+  border-top: 1px solid var(--color-parchment-border);
   margin: 0.75rem 0 0;
 }
 
@@ -33,10 +27,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #f5f0e4;
+  background: var(--color-parchment);
   padding: 0 0.35em;
   font-size: 0.55rem;
-  color: #c8b99a;
+  color: var(--color-parchment-border);
   line-height: 1;
 }
 

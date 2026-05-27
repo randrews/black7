@@ -1,8 +1,14 @@
+:root {
+  --color-blue: #a8d5e8;
+  --color-parchment: #f5f0e4;
+  --color-parchment-border: #c8b99a;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 button { min-height: 2.75rem; font-size: 1rem; font-family: inherit; cursor: pointer; }
 html, body, #root { margin: 0; height: 100%; }
 body {
   font-family: sans-serif;
-  background: linear-gradient(to bottom, #a8d5e8, #4a9e6a);
+  background: linear-gradient(to bottom, var(--color-blue), #4a9e6a);
   min-height: 100vh;
 }

@@ -1,14 +1,8 @@
 .frame {
-  position: fixed;
-  inset: 1rem;
-  border: 2px solid black;
-  border-radius: 2rem;
+  composes: card from '../styles/shared.module.css';
   background: transparent;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 .title {

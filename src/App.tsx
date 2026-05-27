@@ -21,10 +21,8 @@ function clearGame() {
 }
 
 export default function App() {
-  const [page, setPage] = useState<Page>(() =>
-    loadGame() ? 'scoresheet' : 'title'
-  )
-  const [game, setGame] = useState<GameState | null>(() => loadGame())
+  const [game, setGame] = useState<GameState | null>(loadGame)
+  const [page, setPage] = useState<Page>(() => (game ? 'scoresheet' : 'title'))
 
   function handleNewGame() {
     clearGame()
