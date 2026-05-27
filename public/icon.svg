@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#0a0a0a"/>
+  <g fill="none" stroke="#f0ede6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- horizontal top bar + diagonal leg of the 7 -->
+    <path d="M 90 120 L 408 112 L 206 450" stroke-width="30"/>
+    <!-- European crossbar -->
+    <path d="M 248 268 L 354 262" stroke-width="23"/>
+  </g>
+</svg>
