@@ -1,0 +1,7 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #root { margin: 0; height: 100%; }
+body {
+  font-family: sans-serif;
+  background: linear-gradient(to bottom, #a8d5e8, #4a9e6a);
+  min-height: 100vh;
+}

@@ -1,12 +1,21 @@
+import styles from './TitleScreen.module.css'
+
 interface Props {
   onNewGame: () => void
 }
 
 export default function TitleScreen({ onNewGame }: Props) {
   return (
-    <div>
-      <h1>Black 7</h1>
-      <button onClick={onNewGame}>New Game</button>
+    <div className={styles.frame}>
+      <div className={styles.title}>
+        <span className={styles.titleWord}>Black</span>
+        <span className={styles.titleNumber}>7</span>
+      </div>
+      <div className={styles.buttonRow}>
+        <button className={styles.newGameButton} onClick={onNewGame}>
+          New Game
+        </button>
+      </div>
     </div>
   )
 }
