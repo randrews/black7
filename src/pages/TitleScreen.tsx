@@ -1,4 +1,5 @@
 import styles from './TitleScreen.module.css'
+import PrimaryButton from '../components/PrimaryButton'
 
 interface Props {
   onNewGame: () => void
@@ -12,9 +13,7 @@ export default function TitleScreen({ onNewGame }: Props) {
         <span className={styles.titleNumber}>7</span>
       </div>
       <div className={styles.buttonRow}>
-        <button className={styles.newGameButton} onClick={onNewGame}>
-          New Game
-        </button>
+        <PrimaryButton onClick={onNewGame}>New Game</PrimaryButton>
       </div>
     </div>
   )
