@@ -5,7 +5,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-button { min-height: 2.75rem; font-size: 1rem; font-family: inherit; cursor: pointer; }
+button { min-height: 2.75rem; font-size: 1rem; font-family: inherit; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: transform 80ms ease, box-shadow 80ms ease; }
+button:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 html, body, #root { margin: 0; height: 100%; }
 body {
   font-family: sans-serif;

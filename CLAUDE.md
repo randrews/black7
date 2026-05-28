@@ -43,10 +43,15 @@ Navigation is a simple `useState<Page>` state machine in `App.tsx` — no router
 |------|-----|-------------|
 | Title screen | `'title'` | Shown on first load (no saved game). "New Game" button navigates to setup. |
 | Player setup | `'setup'` | Enter 3–6 player names, then "Start" saves the game and goes to scoresheet. |
-| Score sheet | `'scoresheet'` | Shows current scores. "Score Round" → enter scores; "New Game" → clears state, back to title. |
+| Score sheet | `'scoresheet'` | Shows per-round scores and running totals. Small red "New Game" button (top-right) opens a confirmation dialog before clearing state and going to setup. "Score Round" (footer) → enter scores. |
 | Enter scores | `'enterscores'` | Form to enter each player's score for the round. "Submit" → back to scoresheet. |
 
 On mount, `App.tsx` checks `localStorage` for a saved game and jumps straight to `'scoresheet'` if found.
+
+## Game rules
+
+- Each round every player scores some points; all players' scores in a round must sum to **-110**
+- Each player starts at 0; the game ends when any player reaches **-200**
 
 ## Data model
 
@@ -61,6 +66,13 @@ interface GameState {
 
 Persisted to `localStorage` under the key `currentGame`. No game history yet — only one game at a time.
 
+## Scoring logic
+
+Pure functions live in `src/game/scoring.ts` (no React imports):
+
+- `computeRunningTotals(rounds)` — returns `totals[i][j]`, the cumulative score for player `j` after round `i`
+- `isGameOver(totals)` — true if any player's total in the last round is ≤ -200
+
 ## Design system
 
 ### Layout
@@ -72,8 +84,10 @@ Persisted to `localStorage` under the key `currentGame`. No game history yet —
 
 ### PageFrame component
 
-Shared layout for non-title pages. Props: `title`, `children`, `footer?`. Renders:
+Shared layout for non-title pages. Props: `title`, `children`, `footer?`, `headerAction?`, `overlay?`. Renders:
 - Fixed-position card with header (h1 + diamond rule divider), scrollable content area, optional sticky footer
+- `headerAction` — rendered absolutely in the top-right of the header (used for the scoresheet's "New Game" button)
+- `overlay` — rendered `position: fixed; inset: 0` over the full viewport with a dim backdrop; the caller provides the dialog box content centered inside it
 
 Diamond rule: CSS `::before` pseudo-element with `content: '◆'` centered on a thin border line. Color `#c8b99a`.
 
@@ -91,10 +105,10 @@ Diamond rule: CSS `::before` pseudo-element with `content: '◆'` centered on a 
 
 ### Buttons
 
-All buttons share the same press animation: `translateY(2px)` + shadow reduction, 80ms ease transition.
+Shadow and press animation are on the global `button` selector in `src/index.css` — every `<button>` gets them automatically.
 
 - **Resting shadow**: `0 4px 12px rgba(0,0,0,0.25)`
-- **Pressed shadow**: `0 2px 6px rgba(0,0,0,0.2)`
+- **Pressed shadow**: `0 2px 6px rgba(0,0,0,0.2)` via `button:active:not(:disabled)`
 - **`PrimaryButton`**: full-width, blue, `border-radius: 1rem`, `font-size: 1.25rem`, `font-weight: 600`. Accepts `disabled` prop — disabled state: `opacity: 0.45`, no shadow, `cursor: not-allowed`, no press animation.
 - **Round buttons**: circular, `border: none`. Add button: `3rem`, blue. Remove button: `2.5rem`, red.
 

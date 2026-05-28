@@ -43,6 +43,6 @@ export default function App() {
 
   if (page === 'title') return <TitleScreen onNewGame={handleNewGame} />
   if (page === 'setup') return <PlayerSetup onStart={handleStart} />
-  if (page === 'scoresheet') return <ScoreSheet onScoreRound={() => setPage('enterscores')} onNewGame={handleNewGame} />
+  if (page === 'scoresheet') return <ScoreSheet game={game!} onScoreRound={() => setPage('enterscores')} onNewGame={handleNewGame} />
   if (page === 'enterscores') return <EnterScores onSubmit={handleSubmitScores} />
 }

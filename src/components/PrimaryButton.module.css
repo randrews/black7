@@ -1,5 +1,4 @@
 .button {
-  composes: pressable from '../styles/shared.module.css';
   width: 100%;
   padding: 1rem;
   background: var(--color-blue);

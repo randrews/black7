@@ -21,7 +21,6 @@
 }
 
 .circleBtn {
-  composes: pressable from '../styles/shared.module.css';
   border-radius: 50%;
   border: none;
   line-height: 1;
