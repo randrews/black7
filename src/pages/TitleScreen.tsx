@@ -11,6 +11,7 @@ export default function TitleScreen({ onNewGame }: Props) {
       <div className={styles.title}>
         <span className={styles.titleWord}>Black</span>
         <span className={styles.titleNumber}>7</span>
+        <span className={styles.email}>ross.andrews@gmail.com</span>
       </div>
       <div className={styles.buttonRow}>
         <PrimaryButton onClick={onNewGame}>New Game</PrimaryButton>

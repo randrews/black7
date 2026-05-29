@@ -17,6 +17,15 @@ export default function EnterScores({ game, onSubmit }: Props) {
     setValues(vs => vs.map((val, idx) => (idx === i ? v : val)))
   }
 
+  function toggleSign(i: number) {
+    setValues(vs => vs.map((val, idx) => {
+      if (idx !== i) return val
+      const digits = val.startsWith('-') ? val.slice(1) : val
+      if (!digits) return val
+      return val.startsWith('-') ? digits : '-' + digits
+    }))
+  }
+
   const parsed = values.map(v => parseInt(v, 10))
   const fieldError = values.map((v, i) => v !== '' && (isNaN(parsed[i]) || !isIndividualScoreValid(parsed[i])))
   const allFilled = parsed.every(n => !isNaN(n))
@@ -35,9 +44,12 @@ export default function EnterScores({ game, onSubmit }: Props) {
       {game.players.map((name, i) => (
         <div key={i} className={styles.row}>
           <span className={styles.name}>{name}</span>
+          <button type="button" className={styles.signToggle} onClick={() => toggleSign(i)}>
+            {values[i].startsWith('-') ? '−' : '+'}
+          </button>
           <input
             className={`${styles.scoreInput}${fieldError[i] ? ` ${styles.scoreInputError}` : ''}`}
-            type="number"
+            type="text"
             inputMode="numeric"
             value={values[i]}
             onChange={e => updateValue(i, e.target.value)}
