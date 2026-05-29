@@ -17,7 +17,7 @@ export default function HelpModal({ onClose }: Props) {
           <h3>Scoring</h3>
           <ul>
               <li>Gold good! Each gold card is +5 points</li>
-              <li>Red bad! Each bad card -10 points</li>
+              <li>Red bad! Each red card -10 points</li>
               <li>Black seven <em>very</em> bad: -50 points each</li>
               <li>Last trick very good: +50 points</li>
           </ul>
