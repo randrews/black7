@@ -16,6 +16,8 @@ export default function ScoreSheet({ game, onScoreRound, onNewGame }: Props) {
 
   const totals = computeRunningTotals(game.rounds)
   const gameOver = isGameOver(totals)
+  const lastTotals = totals[totals.length - 1] ?? []
+  const winnerIndex = gameOver ? lastTotals.indexOf(Math.max(...lastTotals)) : -1
 
   const newGameButton = (
     <button className={styles.newGameBtn} onClick={() => setConfirmingNewGame(true)}>
@@ -42,7 +44,11 @@ export default function ScoreSheet({ game, onScoreRound, onNewGame }: Props) {
       title="Score Sheet"
       headerAction={newGameButton}
       overlay={confirmingNewGame ? confirmOverlay : undefined}
-      footer={<PrimaryButton onClick={onScoreRound} disabled={gameOver}>Score Round</PrimaryButton>}
+      footer={
+        <PrimaryButton onClick={gameOver ? () => setConfirmingNewGame(true) : onScoreRound}>
+          {gameOver ? 'New Game' : 'Score Round'}
+        </PrimaryButton>
+      }
     >
       <div className={styles.tableWrapper}>
         <div
@@ -51,21 +57,21 @@ export default function ScoreSheet({ game, onScoreRound, onNewGame }: Props) {
         >
           <div className={styles.labelCell} />
           {game.players.map((name, j) => (
-            <div key={j} className={styles.headerCell}>{name}</div>
+            <div key={j} className={styles.headerCell + (j === winnerIndex ? ' ' + styles.winnerCell : '')}>{name}</div>
           ))}
 
           {game.rounds.map((roundScores, i) => (
             <Fragment key={i}>
               <div className={styles.labelCell}>Round {i + 1}</div>
               {roundScores.map((score, j) => (
-                <div key={j} className={styles.scoreCell}>{score}</div>
+                <div key={j} className={styles.scoreCell + (j === winnerIndex ? ' ' + styles.winnerCell : '')}>{score}</div>
               ))}
 
               {i > 0 && (
                 <>
                   <div className={`${styles.labelCell} ${styles.divider}`} />
                   {totals[i].map((total, j) => (
-                    <div key={j} className={`${styles.totalCell} ${styles.divider}`}>{total}</div>
+                    <div key={j} className={styles.totalCell + ' ' + styles.divider + (j === winnerIndex ? ' ' + styles.winnerCell : '')}>{total}</div>
                   ))}
                 </>
               )}

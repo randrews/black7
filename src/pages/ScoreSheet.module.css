@@ -49,6 +49,10 @@
   border-top: 1px solid var(--color-parchment-border);
 }
 
+.winnerCell {
+  background: rgba(74, 158, 106, 0.15);
+}
+
 /* Small red "New Game" button in header top-right */
 .newGameBtn {
   background: #d94f4f;

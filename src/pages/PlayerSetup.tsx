@@ -5,14 +5,15 @@ import styles from './PlayerSetup.module.css'
 
 interface Props {
   onStart: (players: string[]) => void
+  initialNames?: string[]
 }
 
 function normalize(s: string) {
   return s.trim().replace(/\s+/g, ' ')
 }
 
-export default function PlayerSetup({ onStart }: Props) {
-  const [names, setNames] = useState<string[]>(['', '', ''])
+export default function PlayerSetup({ onStart, initialNames }: Props) {
+  const [names, setNames] = useState<string[]>(initialNames ?? ['', '', ''])
 
   function updateName(i: number, value: string) {
     setNames(n => n.map((v, idx) => (idx === i ? value : v)))

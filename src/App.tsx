@@ -23,8 +23,10 @@ function clearGame() {
 export default function App() {
   const [game, setGame] = useState<GameState | null>(loadGame)
   const [page, setPage] = useState<Page>(() => (game ? 'scoresheet' : 'title'))
+  const [previousPlayers, setPreviousPlayers] = useState<string[] | undefined>(undefined)
 
   function handleNewGame() {
+    setPreviousPlayers(game?.players)
     clearGame()
     setGame(null)
     setPage('setup')
@@ -45,7 +47,7 @@ export default function App() {
   }
 
   if (page === 'title') return <TitleScreen onNewGame={handleNewGame} />
-  if (page === 'setup') return <PlayerSetup onStart={handleStart} />
+  if (page === 'setup') return <PlayerSetup onStart={handleStart} initialNames={previousPlayers} />
   if (page === 'scoresheet') return <ScoreSheet game={game!} onScoreRound={() => setPage('enterscores')} onNewGame={handleNewGame} />
   if (page === 'enterscores') return <EnterScores game={game!} onSubmit={handleSubmitScores} />
 }
