@@ -37,12 +37,15 @@ export default function App() {
     setPage('scoresheet')
   }
 
-  function handleSubmitScores() {
+  function handleSubmitScores(scores: number[]) {
+    const updated: GameState = { ...game!, rounds: [...game!.rounds, scores] }
+    saveGame(updated)
+    setGame(updated)
     setPage('scoresheet')
   }
 
   if (page === 'title') return <TitleScreen onNewGame={handleNewGame} />
   if (page === 'setup') return <PlayerSetup onStart={handleStart} />
   if (page === 'scoresheet') return <ScoreSheet game={game!} onScoreRound={() => setPage('enterscores')} onNewGame={handleNewGame} />
-  if (page === 'enterscores') return <EnterScores onSubmit={handleSubmitScores} />
+  if (page === 'enterscores') return <EnterScores game={game!} onSubmit={handleSubmitScores} />
 }
