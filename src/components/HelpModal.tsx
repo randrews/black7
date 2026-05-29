@@ -13,6 +13,7 @@ export default function HelpModal({ onClose }: Props) {
               <li>3 players, remove all 1s and 2s</li>
               <li>4-6 players, use everything</li>
               <li>7-8 players, remove non-yellow 2s</li>
+              <li>Pass 3 cards for 3-5 players, 2 cards for 6-8</li>
           </ul>
           <h3>Scoring</h3>
           <ul>
