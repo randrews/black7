@@ -8,10 +8,13 @@ import styles from './EnterScores.module.css'
 interface Props {
   game: GameState
   onSubmit: (scores: number[]) => void
+  initialValues?: number[]
 }
 
-export default function EnterScores({ game, onSubmit }: Props) {
-  const [values, setValues] = useState<string[]>(() => game.players.map(() => ''))
+export default function EnterScores({ game, onSubmit, initialValues }: Props) {
+  const [values, setValues] = useState<string[]>(() =>
+    game.players.map((_, i) => initialValues ? String(initialValues[i]) : '')
+  )
 
   function updateValue(i: number, v: string) {
     setValues(vs => vs.map((val, idx) => (idx === i ? v : val)))

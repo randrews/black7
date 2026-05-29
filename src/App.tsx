@@ -24,6 +24,7 @@ export default function App() {
   const [game, setGame] = useState<GameState | null>(loadGame)
   const [page, setPage] = useState<Page>(() => (game ? 'scoresheet' : 'title'))
   const [previousPlayers, setPreviousPlayers] = useState<string[] | undefined>(undefined)
+  const [editingRound, setEditingRound] = useState<number | null>(null)
 
   function handleNewGame() {
     setPreviousPlayers(game?.players)
@@ -39,15 +40,24 @@ export default function App() {
     setPage('scoresheet')
   }
 
+  function handleEditRound(i: number) {
+    setEditingRound(i)
+    setPage('enterscores')
+  }
+
   function handleSubmitScores(scores: number[]) {
-    const updated: GameState = { ...game!, rounds: [...game!.rounds, scores] }
+    const rounds = editingRound !== null
+      ? game!.rounds.map((r, i) => (i === editingRound ? scores : r))
+      : [...game!.rounds, scores]
+    const updated: GameState = { ...game!, rounds }
     saveGame(updated)
     setGame(updated)
+    setEditingRound(null)
     setPage('scoresheet')
   }
 
   if (page === 'title') return <TitleScreen onNewGame={handleNewGame} />
   if (page === 'setup') return <PlayerSetup onStart={handleStart} initialNames={previousPlayers} />
-  if (page === 'scoresheet') return <ScoreSheet game={game!} onScoreRound={() => setPage('enterscores')} onNewGame={handleNewGame} />
-  if (page === 'enterscores') return <EnterScores game={game!} onSubmit={handleSubmitScores} />
+  if (page === 'scoresheet') return <ScoreSheet game={game!} onScoreRound={() => setPage('enterscores')} onNewGame={handleNewGame} onEditRound={handleEditRound} />
+  if (page === 'enterscores') return <EnterScores game={game!} onSubmit={handleSubmitScores} initialValues={editingRound !== null ? game!.rounds[editingRound] : undefined} />
 }

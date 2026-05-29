@@ -9,9 +9,10 @@ interface Props {
   game: GameState
   onScoreRound: () => void
   onNewGame: () => void
+  onEditRound: (i: number) => void
 }
 
-export default function ScoreSheet({ game, onScoreRound, onNewGame }: Props) {
+export default function ScoreSheet({ game, onScoreRound, onNewGame, onEditRound }: Props) {
   const [confirmingNewGame, setConfirmingNewGame] = useState(false)
 
   const totals = computeRunningTotals(game.rounds)
@@ -62,7 +63,10 @@ export default function ScoreSheet({ game, onScoreRound, onNewGame }: Props) {
 
           {game.rounds.map((roundScores, i) => (
             <Fragment key={i}>
-              <div className={styles.labelCell}>Round {i + 1}</div>
+              <div className={styles.labelCell}>
+                <button className={styles.editBtn} onClick={() => onEditRound(i)}>✎</button>
+                Round {i + 1}
+              </div>
               {roundScores.map((score, j) => (
                 <div key={j} className={styles.scoreCell + (j === winnerIndex ? ' ' + styles.winnerCell : '')}>{score}</div>
               ))}
