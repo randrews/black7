@@ -2,7 +2,7 @@ import { useState } from 'react'
 import PageFrame from '../components/PageFrame'
 import PrimaryButton from '../components/PrimaryButton'
 import HelpModal from '../components/HelpModal'
-import { isIndividualScoreValid, isRoundScoreValid } from '../game/scoring'
+import { isIndividualScoreValid, isRoundScoreValid, requiredRoundSum } from '../game/scoring'
 import { type GameState } from '../types'
 import styles from './EnterScores.module.css'
 import sharedStyles from '../styles/shared.module.css'
@@ -33,6 +33,7 @@ export default function EnterScores({ game, onSubmit, onBack, initialValues }: P
     }))
   }
 
+  const target = requiredRoundSum(game.players.length)
   const parsed = values.map(v => parseInt(v, 10))
   const fieldError = values.map((v, i) => v !== '' && (isNaN(parsed[i]) || !isIndividualScoreValid(parsed[i])))
   const allFilled = parsed.every(n => !isNaN(n))
@@ -66,8 +67,8 @@ export default function EnterScores({ game, onSubmit, onBack, initialValues }: P
           />
         </div>
       ))}
-      <p className={`${styles.sumLine}${sum === -110 ? ` ${styles.sumValid}` : ''}`}>
-        Sum: {sum} / −110
+      <p className={`${styles.sumLine}${sum === target ? ` ${styles.sumValid}` : ''}`}>
+        Sum: {sum} / {target}
       </p>
     </PageFrame>
   )
