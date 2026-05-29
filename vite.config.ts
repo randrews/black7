@@ -12,9 +12,10 @@ export default defineConfig({
         name: 'Black 7',
         short_name: 'Black 7',
         description: 'Scoring app for Last Panther',
-        theme_color: '#000000',
-        background_color: '#000000',
+        theme_color: '#a8d5e8',
+        background_color: '#a8d5e8',
         display: 'standalone',
+        start_url: '/',
         icons: [
           {
             src: 'pwa-192x192.png',
