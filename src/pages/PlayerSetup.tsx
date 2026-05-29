@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import PageFrame from '../components/PageFrame'
 import PrimaryButton from '../components/PrimaryButton'
+import HelpModal from '../components/HelpModal'
 import styles from './PlayerSetup.module.css'
+import sharedStyles from '../styles/shared.module.css'
 
 interface Props {
   onStart: (players: string[]) => void
@@ -14,6 +16,7 @@ function normalize(s: string) {
 
 export default function PlayerSetup({ onStart, initialNames }: Props) {
   const [names, setNames] = useState<string[]>(initialNames ?? ['', '', ''])
+  const [showHelp, setShowHelp] = useState(false)
 
   function updateName(i: number, value: string) {
     setNames(n => n.map((v, idx) => (idx === i ? value : v)))
@@ -36,6 +39,8 @@ export default function PlayerSetup({ onStart, initialNames }: Props) {
   return (
     <PageFrame
       title="Player Setup"
+      headerAction={<button className={sharedStyles.helpBtn} onClick={() => setShowHelp(true)}>?</button>}
+      overlay={showHelp ? <HelpModal onClose={() => setShowHelp(false)} /> : undefined}
       footer={
         <PrimaryButton onClick={() => onStart(names.map(n => n.trim()))} disabled={!isValid}>
           Start

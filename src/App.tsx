@@ -59,5 +59,5 @@ export default function App() {
   if (page === 'title') return <TitleScreen onNewGame={handleNewGame} />
   if (page === 'setup') return <PlayerSetup onStart={handleStart} initialNames={previousPlayers} />
   if (page === 'scoresheet') return <ScoreSheet game={game!} onScoreRound={() => setPage('enterscores')} onNewGame={handleNewGame} onEditRound={handleEditRound} />
-  if (page === 'enterscores') return <EnterScores game={game!} onSubmit={handleSubmitScores} initialValues={editingRound !== null ? game!.rounds[editingRound] : undefined} />
+  if (page === 'enterscores') return <EnterScores game={game!} onSubmit={handleSubmitScores} onBack={() => { setEditingRound(null); setPage('scoresheet') }} initialValues={editingRound !== null ? game!.rounds[editingRound] : undefined} />
 }

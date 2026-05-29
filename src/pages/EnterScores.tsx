@@ -1,20 +1,24 @@
 import { useState } from 'react'
 import PageFrame from '../components/PageFrame'
 import PrimaryButton from '../components/PrimaryButton'
+import HelpModal from '../components/HelpModal'
 import { isIndividualScoreValid, isRoundScoreValid } from '../game/scoring'
 import { type GameState } from '../types'
 import styles from './EnterScores.module.css'
+import sharedStyles from '../styles/shared.module.css'
 
 interface Props {
   game: GameState
   onSubmit: (scores: number[]) => void
+  onBack: () => void
   initialValues?: number[]
 }
 
-export default function EnterScores({ game, onSubmit, initialValues }: Props) {
+export default function EnterScores({ game, onSubmit, onBack, initialValues }: Props) {
   const [values, setValues] = useState<string[]>(() =>
     game.players.map((_, i) => initialValues ? String(initialValues[i]) : '')
   )
+  const [showHelp, setShowHelp] = useState(false)
 
   function updateValue(i: number, v: string) {
     setValues(vs => vs.map((val, idx) => (idx === i ? v : val)))
@@ -38,6 +42,9 @@ export default function EnterScores({ game, onSubmit, initialValues }: Props) {
   return (
     <PageFrame
       title="Enter Scores"
+      headerActionLeft={<button className={sharedStyles.helpBtn} onClick={onBack}>←</button>}
+      headerAction={<button className={sharedStyles.helpBtn} onClick={() => setShowHelp(true)}>?</button>}
+      overlay={showHelp ? <HelpModal onClose={() => setShowHelp(false)} /> : undefined}
       footer={
         <PrimaryButton onClick={() => onSubmit(parsed)} disabled={!canSubmit}>
           Submit

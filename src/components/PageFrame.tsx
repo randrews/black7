@@ -5,16 +5,18 @@ interface Props {
   children: React.ReactNode
   footer?: React.ReactNode
   headerAction?: React.ReactNode
+  headerActionLeft?: React.ReactNode
   overlay?: React.ReactNode
 }
 
-export default function PageFrame({ title, children, footer, headerAction, overlay }: Props) {
+export default function PageFrame({ title, children, footer, headerAction, headerActionLeft, overlay }: Props) {
   return (
     <div className={styles.frame}>
       <header className={styles.header}>
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.rule} role="separator" />
         {headerAction && <div className={styles.headerAction}>{headerAction}</div>}
+        {headerActionLeft && <div className={styles.headerActionLeft}>{headerActionLeft}</div>}
       </header>
       <div className={styles.content}>
         {children}
