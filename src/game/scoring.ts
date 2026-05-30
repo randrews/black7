@@ -3,7 +3,7 @@ export function isIndividualScoreValid(n: number): boolean {
 }
 
 export function requiredRoundSum(playerCount: number): number {
-  if (playerCount === 3) return -105
+  if (playerCount === 3) return -95
   if (playerCount >= 7) return -100
   return -110
 }
