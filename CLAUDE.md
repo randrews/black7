@@ -42,7 +42,7 @@ Navigation is a simple `useState<Page>` state machine in `App.tsx` — no router
 | Page | Key | Description |
 |------|-----|-------------|
 | Title screen | `'title'` | Shown on first load (no saved game). "New Game" button navigates to setup. |
-| Player setup | `'setup'` | Enter 3–6 player names, then "Start" saves the game and goes to scoresheet. |
+| Player setup | `'setup'` | Enter 3–8 player names, then "Start" saves the game and goes to scoresheet. |
 | Score sheet | `'scoresheet'` | Shows per-round scores and running totals. Small red "New Game" button (top-right) opens a confirmation dialog before clearing state and going to setup. "Score Round" (footer) → enter scores. |
 | Enter scores | `'enterscores'` | Form to enter each player's score for the round. "Submit" → back to scoresheet. |
 
@@ -50,7 +50,7 @@ On mount, `App.tsx` checks `localStorage` for a saved game and jumps straight to
 
 ## Game rules
 
-- Each round every player scores some points; all players' scores in a round must sum to **-110**
+- Each round every player scores some points; scores must sum to **-95** (3 players), **-110** (4–6 players), or **-100** (7–8 players)
 - Each player starts at 0; the game ends when any player reaches **-200**
 
 ## Data model

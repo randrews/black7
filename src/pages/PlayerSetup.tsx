@@ -63,7 +63,7 @@ export default function PlayerSetup({ onStart, initialNames }: Props) {
           )}
         </div>
       ))}
-      {names.length < 6 && (
+      {names.length < 8 && (
         <div className={styles.addRow}>
           <button className={styles.addBtn} onClick={addName}>+</button>
         </div>
